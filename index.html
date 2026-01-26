@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCPPlex - AI-Powered Factory Management Orchestration</title>
+    <link rel="icon" type="image/png" href="./public/logo.png">
+    <link rel="shortcut icon" type="image/png" href="./public/logo.png">
+    <link rel="apple-touch-icon" href="./public/logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border-color: #30363d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-purple: #bc8cff;
+            --accent-orange: #ff9b6b;
+            --hover-bg: #30363d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+        }
+
+        /* Architecture Diagram */
+        .architecture {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px;
+            margin: 48px 0;
+        }
+
+        .architecture h2 {
+            font-size: 32px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .architecture-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .arch-component {
+            background-color: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .arch-component:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(88, 166, 255, 0.15);
+        }
+
+        .arch-component h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .arch-component p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .arch-arrow {
+            color: var(--accent-blue);
+            font-size: 32px;
+        }
+
+        .arch-split {
+            display: flex;
+            gap: 24px;
+            width: 100%;
+            max-width: 1000px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .arch-split .arch-component {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        /* Components Grid */
+        .components {
+            padding: 48px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .component-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+
+        .component-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(88, 166, 255, 0.15);
+        }
+
+        .component-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .component-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .icon-blue { background: linear-gradient(135deg, #1f6feb, #58a6ff); }
+        .icon-green { background: linear-gradient(135deg, #2ea043, #3fb950); }
+        .icon-purple { background: linear-gradient(135deg, #8957e5, #bc8cff); }
+        .icon-orange { background: linear-gradient(135deg, #d73a49, #ff9b6b); }
+
+        .component-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .component-card p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .component-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+        }
+
+        .meta-label {
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+        .meta-value {
+            color: var(--accent-blue);
+            font-family: monospace;
+        }
+
+        .component-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: var(--bg-primary);
+            border-color: var(--accent-blue);
+        }
+
+        .btn-primary:hover {
+            background-color: #4a9aeb;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--hover-bg);
+        }
+
+        /* Quick Start */
+        .quick-start {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px;
+            margin: 48px 0;
+        }
+
+        .quick-start h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .step {
+            display: flex;
+            gap: 16px;
+        }
+
+        .step-number {
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .code-block {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .code-block code {
+            color: var(--accent-green);
+        }
+
+        .code-comment {
+            color: var(--text-secondary);
+        }
+
+        /* Features */
+        .features {
+            padding: 48px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 48px 0;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .footer-content p {
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            padding: 48px 0;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .tech-tag {
+            padding: 8px 16px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .architecture {
+                padding: 24px;
+            }
+
+            .arch-split {
+                flex-direction: column;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight {
+            color: var(--accent-blue);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 24px;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background-color: var(--hover-bg);
+            border-color: var(--accent-blue);
+        }
+
+        .modal-title {
+            font-size: 28px;
+            margin-bottom: 24px;
+            padding-right: 40px;
+        }
+
+        .detailed-arch {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .arch-layer {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .arch-layer-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .arch-layer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .arch-box {
+            background-color: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 150px;
+            transition: all 0.2s;
+        }
+
+        .arch-box:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .arch-box-icon {
+            font-size: 20px;
+        }
+
+        .arch-connector {
+            text-align: center;
+            color: var(--accent-purple);
+            font-size: 24px;
+            margin: 8px 0;
+        }
+
+        .arch-note {
+            background-color: rgba(88, 166, 255, 0.1);
+            border-left: 3px solid var(--accent-blue);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+
+        .clickable-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--accent-blue);
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .clickable-hint:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Demo Video Section */
+        .demo-section {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px;
+            margin: 48px 0;
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: var(--bg-primary);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 20px;
+                padding: 24px;
+                max-height: 90vh;
+            }
+
+            .arch-layer-content {
+                flex-direction: column;
+            }
+
+            .arch-box {
+                min-width: 100%;
+            }
+
+            .demo-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <img src="./public/logo.png" alt="MCPPlex Logo" onerror="this.style.display='none'">
+                    </div>
+                    <span>MCPPlex</span>
+                </a>
+                <nav>
+                    <a href="#architecture">Architecture</a>
+                    <a href="#components">Components</a>
+                    <a href="#quick-start">Quick Start</a>
+                    <a href="#features">Features</a>
+                    <a href="#tech-stack">Tech Stack</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>MCPPlex</h1>
+            <p>
+                A comprehensive orchestration platform that integrates factory management systems 
+                with AI-powered agents through Model Context Protocol (MCP) for intelligent 
+                automation and monitoring.
+            </p>
+            <div class="hero-badges">
+                <span class="badge">
+                    <span class="badge-dot"></span>
+                    AI-Powered Orchestration
+                </span>
+                <span class="badge">
+                    <span class="badge-dot"></span>
+                    Dynamic MCP Generation
+                </span>
+                <span class="badge">
+                    <span class="badge-dot"></span>
+                    Factory Management
+                </span>
+                <span class="badge">
+                    <span class="badge-dot"></span>
+                    Real-time Monitoring
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Video Section -->
+    <section class="container">
+        <div class="demo-section">
+            <h2 class="section-title">🎥 See MCPPlex in Action</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 32px;">
+                Watch how MCPPlex orchestrates factory management through AI-powered agents
+            </p>
+            <div class="video-container">
+                <video controls poster="./public/logo.png">
+                    <source src="./public/demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="container">
+        <div class="architecture">
+            <h2>🏗️ System Architecture</h2>
+            <div class="architecture-diagram">
+                <div class="arch-component" style="background: linear-gradient(135deg, rgba(255, 155, 107, 0.1), rgba(255, 155, 107, 0.05));">
+                    <h3>AGUI - Agentic UI Interface</h3>
+                    <p>Modern web interface for interacting with the orchestration layer</p>
+                </div>
+                
+                <div class="arch-arrow">↓</div>
+                
+                <div class="arch-component" style="background: linear-gradient(135deg, rgba(188, 140, 255, 0.1), rgba(188, 140, 255, 0.05)); cursor: pointer;" onclick="openArchModal()">
+                    <h3>Agentic AI Orchestrator</h3>
+                    <p>Intelligent workflow coordination and multi-agent management</p>
+                    <span class="clickable-hint">🔍 Click for detailed architecture</span>
+                </div>
+                
+                <div class="arch-arrow">↓</div>
+                
+                <div class="arch-component" style="background: linear-gradient(135deg, rgba(63, 185, 80, 0.1), rgba(63, 185, 80, 0.05));">
+                    <h3>MCP Spawner</h3>
+                    <p>Dynamic MCP Server Generator from Swagger/OpenAPI specs</p>
+                </div>
+                
+                <div class="arch-arrow">↓</div>
+                
+                <div class="arch-split">
+                    <div class="arch-component" style="background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(88, 166, 255, 0.05));">
+                        <h3>MRP Service</h3>
+                        <p>Maintenance & Resource Planning<br><span class="highlight">Port 3001</span></p>
+                    </div>
+                    <div class="arch-component" style="background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(88, 166, 255, 0.05));">
+                        <h3>PLM Service</h3>
+                        <p>Production Line Monitoring<br><span class="highlight">Port 3000</span></p>
+                    </div>
+                    <div class="arch-component" style="background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(88, 166, 255, 0.05));">
+                        <h3>Agent N</h3>
+                        <p>Additional Agentic Services<br><span class="highlight">Extensible</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Components Section -->
+    <section id="components" class="container">
+        <div class="components">
+            <h2 class="section-title">📦 Core Components</h2>
+            <div class="components-grid">
+                <!-- Factory Management System -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon icon-blue">🏭</div>
+                        <div>
+                            <h3>Factory Management System</h3>
+                        </div>
+                    </div>
+                    <p>
+                        Core backend services providing factory operations management with MRP 
+                        (Maintenance and Resource Planning) and PLM (Production Line Monitoring).
+                    </p>
+                    <div class="component-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">MRP Port:</span>
+                            <span class="meta-value">3001</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">PLM Port:</span>
+                            <span class="meta-value">3000</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Startup:</span>
+                            <span class="meta-value">docker-compose up</span>
+                        </div>
+                    </div>
+                    <div class="component-links">
+                        <a href="https://git.i.mercedes-benz.com/PATPAVA/factory-management-system" class="btn btn-primary" target="_blank">
+                            📁 Repository
+                        </a>
+                    </div>
+                </div>
+
+                <!-- MCP Spawner -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon icon-green">⚡</div>
+                        <div>
+                            <h3>MCP Spawner</h3>
+                        </div>
+                    </div>
+                    <p>
+                        A NestJS-based application that dynamically generates MCP servers from 
+                        Swagger/OpenAPI specifications. Automatically creates tools and hosts them 
+                        for the orchestrator to consume.
+                    </p>
+                    <div class="component-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Framework:</span>
+                            <span class="meta-value">NestJS</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Language:</span>
+                            <span class="meta-value">TypeScript</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Startup:</span>
+                            <span class="meta-value">docker-compose up</span>
+                        </div>
+                    </div>
+                    <div class="component-links">
+                        <a href="https://git.i.mercedes-benz.com/PATPAVA/poc-dynamic-mcp-spawning" class="btn btn-primary" target="_blank">
+                            📁 Repository
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Agentic AI Orchestrator -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon icon-purple">🤖</div>
+                        <div>
+                            <h3>Agentic AI Orchestrator</h3>
+                        </div>
+                    </div>
+                    <p>
+                        The core AI orchestration engine that coordinates between MCP servers and 
+                        manages agentic workflows for factory operations. Provides intelligent 
+                        decision-making and multi-agent coordination capabilities.
+                    </p>
+                    <div class="component-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Type:</span>
+                            <span class="meta-value">AI Orchestrator</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Language:</span>
+                            <span class="meta-value">Python</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Startup:</span>
+                            <span class="meta-value">.\start.ps1</span>
+                        </div>
+                    </div>
+                    <div class="component-links">
+                        <a href="https://git.i.mercedes-benz.com/PATPAVA/langgraph-orchestrator" class="btn btn-primary" target="_blank">
+                            📁 Repository
+                        </a>
+                    </div>
+                </div>
+
+                <!-- AGUI -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon icon-orange">🎨</div>
+                        <div>
+                            <h3>AGUI - Agentic UI</h3>
+                        </div>
+                    </div>
+                    <p>
+                        Modern web interface for interacting with the orchestration layer, providing 
+                        a user-friendly way to manage and monitor factory operations through AI agents.
+                    </p>
+                    <div class="component-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Type:</span>
+                            <span class="meta-value">Web Interface</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Features:</span>
+                            <span class="meta-value">Chat, Monitoring</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Startup:</span>
+                            <span class="meta-value">docker-compose up -d</span>
+                        </div>
+                    </div>
+                    <div class="component-links">
+                        <a href="https://git.i.mercedes-benz.com/PATPAVA/AgUI" class="btn btn-primary" target="_blank">
+                            📁 Repository
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section id="quick-start" class="container">
+        <div class="quick-start">
+            <h2>🚀 Quick Start Guide</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 32px;">
+                Follow these steps to get MCPPlex up and running on your machine. Each component 
+                needs to be started in order for the full system to function properly.
+            </p>
+            
+            <div class="steps">
+                <!-- Step 1 -->
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Start Factory Management Services</h3>
+                        <p>Clone and start the MRP & PLM backend services</p>
+                        <div class="code-block">
+<code><span class="code-comment"># Clone the repository</span>
+git clone https://git.i.mercedes-benz.com/PATPAVA/factory-management-system
+cd factory-management-system
+
+<span class="code-comment"># Start services with Docker Compose</span>
+docker-compose up
+
+<span class="code-comment"># Services will be available at:</span>
+<span class="code-comment"># MRP: http://localhost:3001</span>
+<span class="code-comment"># PLM: http://localhost:3000</span></code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Launch MCP Spawner</h3>
+                        <p>Start the dynamic MCP server generator</p>
+                        <div class="code-block">
+<code><span class="code-comment"># In a new terminal window</span>
+git clone https://git.i.mercedes-benz.com/PATPAVA/poc-dynamic-mcp-spawning
+cd poc-dynamic-mcp-spawning
+
+<span class="code-comment"># Start MCP Spawner</span>
+docker-compose up</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Start Agentic AI Orchestrator</h3>
+                        <p>Launch the AI orchestration engine</p>
+                        <div class="code-block">
+<code><span class="code-comment"># In a new terminal window</span>
+git clone https://git.i.mercedes-benz.com/PATPAVA/langgraph-orchestrator
+cd langgraph-orchestrator
+
+<span class="code-comment"># Start orchestrator with PowerShell script</span>
+.\start.ps1</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Launch AGUI</h3>
+                        <p>Start the web interface</p>
+                        <div class="code-block">
+<code><span class="code-comment"># In a new terminal window</span>
+git clone https://git.i.mercedes-benz.com/PATPAVA/AgUI
+cd AgUI
+
+<span class="code-comment"># Start in detached mode</span>
+docker-compose up -d
+
+<span class="code-comment"># Check logs if needed</span>
+docker-compose logs -f</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Access the Platform</h3>
+                        <p>Open your browser and navigate to the AGUI interface. The system is now ready to use!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="container">
+        <div class="features">
+            <h2 class="section-title">✨ Key Features & Use Cases</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔮</div>
+                    <h3>Predictive Maintenance</h3>
+                    <p>AI agents analyze MRP data to predict maintenance needs before failures occur</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Production Optimization</h3>
+                    <p>Real-time monitoring and optimization of production lines for maximum efficiency</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Resource Allocation</h3>
+                    <p>Intelligent resource planning based on current and forecasted demand</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚨</div>
+                    <h3>Anomaly Detection</h3>
+                    <p>Automatic detection and alerting of production anomalies in real-time</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Conversational Operations</h3>
+                    <p>Natural language interface for factory management tasks and queries</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Dynamic Tool Generation</h3>
+                    <p>Automatically create MCP tools from any Swagger/OpenAPI specification</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech-stack" class="container">
+        <div class="tech-stack">
+            <h2 class="section-title">🛠️ Technology Stack</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">🐍 Python</span>
+                <span class="tech-tag">📘 TypeScript</span>
+                <span class="tech-tag">⚛️ NestJS</span>
+                <span class="tech-tag">🦜 LangGraph</span>
+                <span class="tech-tag">🔷 Node.js</span>
+                <span class="tech-tag">🐳 Docker</span>
+                <span class="tech-tag">🤖 AI/ML</span>
+                <span class="tech-tag">📝 OpenAPI</span>
+                <span class="tech-tag">🔌 MCP</span>
+                <span class="tech-tag">🌐 REST APIs</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://git.i.mercedes-benz.com/PATPAVA/factory-management-system" target="_blank">Factory Management</a>
+                    <a href="https://git.i.mercedes-benz.com/PATPAVA/poc-dynamic-mcp-spawning" target="_blank">MCP Spawner</a>
+                    <a href="https://git.i.mercedes-benz.com/PATPAVA/langgraph-orchestrator" target="_blank">AI Orchestrator</a>
+                    <a href="https://git.i.mercedes-benz.com/PATPAVA/AgUI" target="_blank">AGUI</a>
+                </div>
+                <p>Internal Mercedes-Benz Project • All Rights Reserved</p>
+                <p style="font-size: 12px;">Last Updated: November 23, 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop">↑</div>
+
+    <!-- Detailed Architecture Modal -->
+    <div id="archModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeArchModal()">×</button>
+            <h2 class="modal-title">🔍 Detailed System Architecture</h2>
+            
+            <div class="detailed-arch">
+                <!-- Layer 1: UI -->
+                <div class="arch-layer">
+                    <div class="arch-layer-title">
+                        <span>🎨</span> User Interface Layer
+                    </div>
+                    <div class="arch-layer-content">
+                        <div class="arch-box">
+                            <span class="arch-box-icon">💻</span>
+                            <span>AGUI - Agentic UI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-connector">↓</div>
+
+                <!-- Layer 2: Orchestration -->
+                <div class="arch-layer">
+                    <div class="arch-layer-title">
+                        <span>🤖</span> AI Orchestration Layer
+                    </div>
+                    <div class="arch-layer-content">
+                        <div class="arch-box">
+                            <span class="arch-box-icon">🧠</span>
+                            <span>Agentic AI Application</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-connector">↓</div>
+
+                <!-- Layer 3: MCP Adapter -->
+                <div class="arch-layer">
+                    <div class="arch-layer-title">
+                        <span>🔌</span> Protocol Adapter Layer
+                    </div>
+                    <div class="arch-layer-content">
+                        <div class="arch-box">
+                            <span class="arch-box-icon">⚡</span>
+                            <span>Agentic AI MCP Adapter</span>
+                        </div>
+                    </div>
+                    <div class="arch-note">
+                        <strong>Note:</strong> The MCP Adapter bridges the Agentic AI system with Model Context Protocol servers, enabling dynamic tool discovery and execution.
+                    </div>
+                </div>
+
+                <div class="arch-connector">↓</div>
+
+                <!-- Layer 4: MCP Servers -->
+                <div class="arch-layer">
+                    <div class="arch-layer-title">
+                        <span>⚙️</span> MCP Server Layer
+                    </div>
+                    <div class="arch-layer-content">
+                        <div class="arch-box">
+                            <span class="arch-box-icon">🔧</span>
+                            <span>MCP Server (PLM)</span>
+                        </div>
+                        <div class="arch-box">
+                            <span class="arch-box-icon">🔧</span>
+                            <span>MCP Server (MRP)</span>
+                        </div>
+                        <div class="arch-box">
+                            <span class="arch-box-icon">🔧</span>
+                            <span>MCP Server (Agent N)</span>
+                        </div>
+                    </div>
+                    <div class="arch-note">
+                        <strong>Options:</strong> Can be individual MCP servers per application or a unified MCP server connecting all backend services.
+                    </div>
+                </div>
+
+                <div class="arch-connector">↓</div>
+
+                <!-- Layer 5: Applications -->
+                <div class="arch-layer">
+                    <div class="arch-layer-title">
+                        <span>🏭</span> Application Layer
+                    </div>
+                    <div class="arch-layer-content">
+                        <div class="arch-box">
+                            <span class="arch-box-icon">📊</span>
+                            <span>PLM Application (Port 3000)</span>
+                        </div>
+                        <div class="arch-box">
+                            <span class="arch-box-icon">🔩</span>
+                            <span>MRP Application (Port 3001)</span>
+                        </div>
+                        <div class="arch-box">
+                            <span class="arch-box-icon">🤖</span>
+                            <span>Agent N Applications</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Flow Information -->
+                <div class="arch-layer" style="background: linear-gradient(135deg, rgba(63, 185, 80, 0.1), rgba(63, 185, 80, 0.05)); border-color: var(--accent-green);">
+                    <div class="arch-layer-title" style="color: var(--accent-green);">
+                        <span>🔄</span> Data Flow
+                    </div>
+                    <div style="font-size: 14px; line-height: 1.8; color: var(--text-secondary);">
+                        <strong style="color: var(--text-primary);">Request Flow:</strong><br>
+                        AGUI → Agentic AI App → Agentic AI MCP Adapter → MCP Servers → Backend Applications<br><br>
+                        <strong style="color: var(--text-primary);">Response Flow:</strong><br>
+                        Backend Applications → MCP Servers → Agentic AI MCP Adapter → Agentic AI App → AGUI<br><br>
+                        <strong style="color: var(--text-primary);">Key Features:</strong><br>
+                        • Dynamic tool discovery from MCP servers<br>
+                        • Multi-agent coordination and orchestration<br>
+                        • Flexible MCP architecture (unified or distributed)<br>
+                        • Real-time communication between all layers
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a, .footer-links a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Modal functions
+        function openArchModal() {
+            document.getElementById('archModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeArchModal() {
+            document.getElementById('archModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('archModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeArchModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeArchModal();
+            }
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.component-card, .feature-card, .step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
